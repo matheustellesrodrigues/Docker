@@ -1,0 +1,38 @@
+version: '3.9'
+
+services:
+  web:
+    # Define que o serviço 'web' será construído a partir do Dockerfile no diretório atual
+    build: .
+    # Mapeia a porta 8080 do host para a porta 80 do contêiner
+    ports:
+      - "8080:80"
+    # Define variáveis de ambiente para o serviço 'web'
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__OracleDbConnection=User Id=RM551353;Password=190204;Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=db)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=XEPDB1)))
+    # Define que o serviço 'web' depende do serviço 'db'
+    depends_on:
+      - db
+
+  db:
+    # Utiliza a imagem oficial do Oracle XE versão 21-slim para o banco de dados
+    image: gvenzl/oracle-xe:21-slim
+    # Define variáveis de ambiente para o serviço 'db'
+    environment:
+      ORACLE_PASSWORD: "190204"
+      APP_USER: "RM551353"
+      APP_USER_PASSWORD: "190204"
+    # Mapeia a porta 1521 do host para a porta 1521 do contêiner e a porta 5500 do host para a porta 5500 do contêiner
+    ports:
+      - "1521:1521"
+      - "5500:5500"
+    # Define um volume para persistir os dados do Oracle
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+
+# Define um volume nomeado 'oracle-data' para persistência dos dados do Oracle
+volumes:
+  oracle-data:
+
+
