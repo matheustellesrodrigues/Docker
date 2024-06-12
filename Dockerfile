@@ -1,49 +1,48 @@
-# Utiliza a imagem oficial do .NET SDK versão 8.0 para construir a aplicação
+# Utiliza a imagem oficial do .NET SDK versÃ£o 8.0 para construir a aplicaÃ§Ã£o
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
-# Define o diretório de trabalho dentro do contêiner
+# Define o diretÃ³rio de trabalho dentro do contÃªiner
 WORKDIR /app
 
 # Limpa todos os caches locais do NuGet
 RUN dotnet nuget locals all --clear
 
-# Copia o arquivo de projeto (.csproj) para o diretório de trabalho
-COPY *.csproj ./
+# Copia o arquivo de projeto (.csproj) para o diretÃ³rio de trabalho
+COPY GS.csproj ./
 
-# Restaura as dependências do projeto
+# Restaura as dependÃªncias do projeto
 RUN dotnet restore
 
-# Copia todos os arquivos do diretório atual para o diretório de trabalho no contêiner
+# Copia todos os arquivos do diretÃ³rio atual para o diretÃ³rio de trabalho no contÃªiner
 COPY . ./
 
-# Publica a aplicação em modo Release para a pasta 'out'
-RUN dotnet publish -c Release -o out
+# Publica a aplicaÃ§Ã£o em modo Release para a pasta 'out'
+RUN dotnet publish -c Release -o out GS.csproj
 
-# Utiliza a imagem oficial do .NET ASP.NET Core runtime versão 8.0 para rodar a aplicação
+# Utiliza a imagem oficial do .NET ASP.NET Core runtime versÃ£o 8.0 para rodar a aplicaÃ§Ã£o
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 
-# Define o diretório de trabalho dentro do contêiner
+# Define o diretÃ³rio de trabalho dentro do contÃªiner
 WORKDIR /app
 
-# Copia os arquivos publicados da etapa de build para o diretório de trabalho no contêiner
+# Copia os arquivos publicados da etapa de build para o diretÃ³rio de trabalho no contÃªiner
 COPY --from=build /app/out .
 
-# Cria um novo usuário chamado 'myuser'
+# Cria um novo usuÃ¡rio chamado 'myuser'
 RUN useradd -m myuser
 
-# Define o usuário 'myuser' para executar os comandos seguintes
+# Define o usuÃ¡rio 'myuser' para executar os comandos seguintes
 USER myuser
 
-# Define uma variável de ambiente com valor padrão 'Production'
+# Define uma variÃ¡vel de ambiente com valor padrÃ£o 'Production'
 ARG ENVIRONMENT=Production
 
-# Define a variável de ambiente ASPNETCORE_ENVIRONMENT
+# Define a variÃ¡vel de ambiente ASPNETCORE_ENVIRONMENT
 ENV ASPNETCORE_ENVIRONMENT=${ENVIRONMENT}
 
-# Expõe a porta 80 para permitir acessos HTTP
+# ExpÃµe a porta 80 para permitir acessos HTTP
 EXPOSE 80
 
-# Define o ponto de entrada do contêiner para rodar a aplicação
+# Define o ponto de entrada do contÃªiner para rodar a aplicaÃ§Ã£o
 ENTRYPOINT ["dotnet", "GS.dll"]
-
 

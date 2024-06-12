@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\Desktop\\GS\\GS\\GS.csproj": {}
+    "C:\\Users\\User\\Desktop\\Docker\\GS.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\Desktop\\GS\\GS\\GS.csproj": {
+    "C:\\Users\\User\\Desktop\\Docker\\GS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Desktop\\GS\\GS\\GS.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\Docker\\GS.csproj",
         "projectName": "GS",
-        "projectPath": "C:\\Users\\User\\Desktop\\GS\\GS\\GS.csproj",
+        "projectPath": "C:\\Users\\User\\Desktop\\Docker\\GS.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Desktop\\GS\\GS\\obj\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\Docker\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
